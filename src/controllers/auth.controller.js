@@ -12,7 +12,6 @@ export const register = async (req, res) => {
       password,
       phone
     } = req.body;
-    email = email.toLowerCase();
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
 
