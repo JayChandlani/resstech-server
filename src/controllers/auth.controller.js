@@ -12,6 +12,7 @@ export const register = async (req, res) => {
       password,
       phone
     } = req.body;
+    email = email.toLowerCase();
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
 
@@ -42,7 +43,7 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ email: email.toLowerCase() });
     if (!user) return res.status(400).json({ message: "User does not exist." });
 
     const isMatch = await bcrypt.compare(password, user.password);
